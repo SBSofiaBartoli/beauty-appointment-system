@@ -1,10 +1,17 @@
 import { Router } from "express";
-import { registerUser, getAllUsers, getUserById, loginUser } from "../controllers/userController";
+import {
+  registerUser,
+  getAllUsers,
+  getUserById,
+  loginUser,
+} from "../controllers/userController";
+import { authenticate } from "../../middlewares/authenticate";
+import { authorize } from "../../middlewares/authorize";
 
 const usersRouter = Router();
 
-usersRouter.get("/", getAllUsers);
-usersRouter.get("/:id", getUserById);
+usersRouter.get("/", authenticate, authorize("admin"), getAllUsers);
+usersRouter.get("/:id", authenticate, getUserById);
 usersRouter.post("/register", registerUser);
 usersRouter.post("/login", loginUser);
 

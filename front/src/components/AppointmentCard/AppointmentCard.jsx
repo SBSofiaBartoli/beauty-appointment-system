@@ -1,42 +1,54 @@
-import axios from "axios";
 import styles from "./AppointmentCard.module.css";
+import api from "../../helpers/api";
 
-function AppointmentCard ({ appointment, onCancel }) {
-    const handleCancel = async () => {
-        try {
-            const appointmentDate = new Date(appointment.date);
-            const currentDate = new Date();
+function AppointmentCard({ appointment, onCancel }) {
+  const handleCancel = async () => {
+    const appointmentDateTime = new Date(
+      `${appointment.date}T${appointment.time}:00`,
+    );
+    const now = new Date();
+    const diffHours = (appointmentDateTime - now) / (1000 * 60 * 60);
 
-            if (appointmentDate.getTime() <= currentDate.getTime()) {
-                return alert("El turno se puede cancelar unicamente hasta el dia anterior a la reserva");
-            };
-            await axios.put(`http://localhost:3000/appointments/cancel/${appointment.id}`);
-            alert("Turno cancelado con exito");
-            onCancel();
-        } catch (error) {
-            console.error(error);
-            alert("Ocurrio un error al cancelar el turno");
-        }
+    if (diffHours < 12) {
+      return alert(
+        "Solo podés cancelar un turno con al menos 12 horas de anticipación",
+      );
     }
+    if (!window.confirm("¿Estás segura de que querés cancelar este turno?"))
+      return;
+    try {
+      await api.put(`/appointments/cancel/${appointment.id}`);
+      alert("Turno cancelado con éxito");
+      onCancel();
+    } catch (error) {
+      alert(error.response?.data?.message || "Ocurrió un error al cancelar");
+    }
+  };
 
-    return (
+  const formatDate = (dateStr) => {
+    const [year, month, day] = dateStr.split("-");
+    return `${day}/${month}/${year}`;
+  };
+
+  return (
     <div className={styles.appointmentCard}>
-        <span>{appointment.date}</span>
-        <span>{appointment.time}</span>
-        <span>{appointment.treatment}</span>
-        <span className={`${styles.status} ${
-            appointment.status === "cancelled"
-            ? styles.cancelled
-            : styles.active
-        }`}
-        >
-        {appointment.status}
-        </span>
-        <span>
-            {appointment.status !== "cancelled" && <button onClick={handleCancel}  className={styles.cancelButton}>Cancelar</button>}
-        </span>
+      <span>{formatDate(appointment.date)}</span>
+      <span>{appointment.time}</span>
+      <span>{appointment.treatment}</span>
+      <span
+        className={`${styles.status} ${appointment.status === "cancelled" ? styles.cancelled : styles.active}`}
+      >
+        {appointment.status === "cancelled" ? "Cancelado" : "Activo"}
+      </span>
+      <span>
+        {appointment.status !== "cancelled" && (
+          <button onClick={handleCancel} className={styles.cancelButton}>
+            Cancelar
+          </button>
+        )}
+      </span>
     </div>
-    )
-};
+  );
+}
 
 export default AppointmentCard;

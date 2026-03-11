@@ -1,63 +1,65 @@
 .myAppointmentsContainer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-    gap: 10px;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  gap: 10px;
+  align-items: center;
 }
 
 .myAppointmentsContainer > h1 {
-    display: flex;
-    justify-content: center;
-    font-size: 2rem;
-    color: black;
-    margin-bottom: 20px;
+  font-size: 2rem;
+  color: #1a3a1a;
+  margin-bottom: 10px;
 }
 
 .appointmentsHeader {
-    display: grid;
-    grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
-    width: 100%;
-    background-color: #285631;
-    color: #f7f4ec;
-    font-size: 1.3rem;
-    font-weight: 600;
-    padding: 10px 16px;
-    border-radius: 8px;
-    box-sizing: border-box;
-    text-align: center;
-    align-items: center;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+  width: 100%;
+  background-color: #285631;
+  color: #f7f4ec;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  text-align: center;
+  align-items: center;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .appointmentsList {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 8px;
+}
+
+.loading,
+.empty {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #444;
+  padding: 20px;
 }
 
 @media (max-width: 900px) {
-    .appointmentsHeader {
-        grid-template-columns: 1fr 1fr 1fr;
-        font-size: 1.1rem;
-        padding: 8px 12px;
-    }
+  .appointmentsHeader {
+    grid-template-columns: 1fr 1fr 1fr;
+    font-size: 1.1rem;
+  }
 }
 
 @media (max-width: 600px) {
-    .myAppointmentsContainer > h1 {
-        font-size: 1.5rem;
-        text-align: center;
-    }
-
-    .appointmentsHeader {
-        display: none; /* Ocultamos el header en pantallas muy pequeñas */
-    }
-
-    .appointmentsList {
-        gap: 12px;
-    }
+  .myAppointmentsContainer > h1 {
+    font-size: 1.5rem;
+  }
+  .appointmentsHeader {
+    display: none;
+  }
+  .appointmentsList {
+    gap: 12px;
+  }
 }

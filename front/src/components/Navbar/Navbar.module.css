@@ -1,81 +1,84 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: rgb(136, 196, 136, 0.9);
-    padding: 0 20px;
-    height: 80px;
-    margin: 25px auto;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35); 
-    width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(136, 196, 136, 0.9);
+  padding: 0 20px;
+  height: 80px;
+  margin: 25px auto;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  width: 90%;
 }
 
 .logo {
-    width: 100px;
-    border-radius: 50%;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 100px;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .navList {
-    display: flex;
-    align-items: center;
-    list-style: none;
-    gap: 30px;
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 15px;
 }
 
 .navList > li > a {
-    font-size: 1.2rem;
-    text-decoration: none;
-    color: rgb(255, 255, 255);
-    transform: 0.3s;
-    background-color: rgb(47, 103, 47);
-    padding: 10px;
-    border-radius: 10px;
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  transform: 0.3s;
+  background-color: rgb(47, 103, 47);
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: opacity 0.3s;
 }
 
 .navList > li > button {
-    font-size: 1.2rem;
-    text-decoration: none;
-    color: rgb(255, 255, 255);
-    transform: 0.3s;
-    background-color: rgb(226, 133, 133);
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
+  font-size: 1.1rem;
+  color: rgb(255, 255, 255);
+  background-color: rgb(226, 133, 133);
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.userName {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgb(47, 103, 47);
 }
 
 .navList > li > a:hover,
 .navList > li > button:hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 @media (max-width: 768px) {
-    .header {
+  .header {
     flex-direction: column;
-    align-items: center;
     height: auto;
     padding: 10px;
     gap: 10px;
-    }
+  }
 
-    .logo {
-        width: 80px;
-    }
+  .logo {
+    width: 80px;
+  }
 
-    .navList {
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-        padding: 0;
-        margin: 0;
-    }
+  .navList {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
 
-    .navList > li > a,
-    .navList > li > button {
-        width: 100%;
-        text-align: center;
-        font-size: 1rem;
-    }
+  .navList > li > a,
+  .navList > li > button {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
 }
