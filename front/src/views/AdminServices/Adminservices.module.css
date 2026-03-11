@@ -1,0 +1,163 @@
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.container > h1 {
+  font-size: 2rem;
+  color: #1a3a1a;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.formSection {
+  background: rgba(200, 252, 200, 0.7);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.formSection > h2,
+.listSection > h2 {
+  font-size: 1.3rem;
+  color: #285631;
+  margin-bottom: 16px;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form input {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #b5d9b5;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.form input:focus {
+  border-color: #285631;
+}
+
+.formBtns {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 12px;
+}
+
+.saveBtn {
+  background: #285631;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.saveBtn:hover {
+  opacity: 0.85;
+}
+
+.cancelBtn {
+  background: #e28585;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.cancelBtn:hover {
+  opacity: 0.85;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: white;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card > h3 {
+  color: #1a3a1a;
+  font-size: 1.1rem;
+}
+.card > p {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.meta {
+  display: flex;
+  gap: 12px;
+  font-weight: 600;
+  color: #285631;
+}
+
+.cardBtns {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.editBtn {
+  flex: 1;
+  padding: 7px;
+  background: #53a353;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+.deleteBtn {
+  flex: 1;
+  padding: 7px;
+  background: #e28585;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+.editBtn:hover,
+.deleteBtn:hover {
+  opacity: 0.8;
+}
+
+.msg {
+  text-align: center;
+  color: #555;
+  padding: 20px;
+  font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+  .form {
+    grid-template-columns: 1fr;
+  }
+}
