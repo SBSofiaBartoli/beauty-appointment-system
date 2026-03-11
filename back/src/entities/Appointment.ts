@@ -1,37 +1,37 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
-import { User } from "./User"
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "./User";
 
 export enum AppStatus {
-    ACTIVE = "active",
-    CANCELLED = "cancelled"
+  ACTIVE = "active",
+  CANCELLED = "cancelled",
 }
 
 @Entity({
-    name: "appointments"
+  name: "appointments",
 })
 export class Appointment {
-    @PrimaryGeneratedColumn()
-    id: number
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({ type: "date"})
-    date: Date
+  @Column({ type: "date" })
+  date: Date;
 
-    @Column()
-    time: string
+  @Column()
+  time: string;
 
-    @Column()
-    userId: number
+  @Column()
+  treatment: string;
 
-    @Column()
-    treatment: string
+  @Column({
+    type: "enum",
+    enum: AppStatus,
+    default: AppStatus.ACTIVE,
+  })
+  status: AppStatus;
 
-    @Column({
-        type: "enum",
-        enum: AppStatus,
-        default: AppStatus.ACTIVE,
-    })
-    status: AppStatus
+  @Column({ default: false })
+  reminderSent: boolean;
 
-    @ManyToOne(() => User, (user) => user.appointments)
-    user: User
-};
+  @ManyToOne(() => User, (user) => user.appointments)
+  user: User;
+}
