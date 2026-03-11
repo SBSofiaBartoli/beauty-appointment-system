@@ -1,0 +1,143 @@
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.container > h1 {
+  font-size: 2rem;
+  color: #1a3a1a;
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.kpi {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #285631;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.kpiGreen {
+  border-top-color: #53a353;
+}
+.kpiRed {
+  border-top-color: #e28585;
+}
+.kpiGold {
+  border-top-color: #d4a017;
+}
+
+.kpiValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a3a1a;
+}
+
+.kpiLabel {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.section {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+}
+
+.section > h2 {
+  font-size: 1.1rem;
+  color: #285631;
+  margin-bottom: 16px;
+  border-bottom: 2px solid #d4edda;
+  padding-bottom: 8px;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+}
+
+.barWrap {
+  flex: 1;
+  background: #e8f5e8;
+  border-radius: 6px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  background: #53a353;
+  border-radius: 6px;
+  transition: width 0.5s ease;
+}
+
+.barCount {
+  font-weight: 600;
+  color: #285631;
+  min-width: 30px;
+  text-align: right;
+}
+.rank {
+  font-weight: 700;
+  color: #285631;
+  min-width: 28px;
+}
+.treatName {
+  flex: 1;
+}
+
+.empty,
+.msg {
+  text-align: center;
+  color: #666;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .kpiGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .twoCol {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .kpiGrid {
+    grid-template-columns: 1fr;
+  }
+  .kpiValue {
+    font-size: 1.6rem;
+  }
+}
