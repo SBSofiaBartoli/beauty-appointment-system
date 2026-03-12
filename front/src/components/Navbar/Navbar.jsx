@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./NavBar.module.css";
-import logo from "../../assets/Logo2.png";
+import logo from "../../assets/logo.png";
 import { useAuth } from "../../context/Authcontext";
 
 function NavBar() {
@@ -19,8 +19,9 @@ function NavBar() {
     <header className={styles.header}>
       <nav className={styles.navbar}>
         <Link to="/" className={styles.brand}>
-          <img src={logo} alt="Logo Urban Shine" className={styles.logo} />
-          <div className={styles.logoCircle}>D</div>
+          <div className={styles.logoWrapper}>
+            <img src={logo} alt="Dimissi" className={styles.logoImg} />
+          </div>
           <span className={styles.brandName}>Dimissi</span>
         </Link>
         <ul className={styles.navLinks}>
