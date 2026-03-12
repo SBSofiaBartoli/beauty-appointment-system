@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./NavBar.module.css";
 import logo from "../../assets/Logo2.png";
 import { useAuth } from "../../context/Authcontext";
@@ -6,55 +6,97 @@ import { useAuth } from "../../context/Authcontext";
 function NavBar() {
   const { user, logout, isAdmin } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogOut = () => {
     logout();
     navigate("/");
   };
 
+  const isActive = (path) => location.pathname === path;
+
   return (
     <header className={styles.header}>
-      <img src={logo} alt="Logo Urban Shine" className={styles.logo} />
-      <nav>
-        <ul className={styles.navList}>
+      <nav className={styles.navbar}>
+        <Link to="/" className={styles.brand}>
+          <img src={logo} alt="Logo Urban Shine" className={styles.logo} />
+          <div className={styles.logoCircle}>D</div>
+          <span className={styles.brandName}>Dimissi</span>
+        </Link>
+        <ul className={styles.navLinks}>
           <li>
-            <Link to="/">Home</Link>
+            <Link
+              to="/"
+              className={`${styles.link} ${isActive("/") ? styles.linkActive : ""}`}
+            >
+              Inicio
+            </Link>
           </li>
+
           {user ? (
             <>
               {isAdmin ? (
                 <>
                   <li>
-                    <Link to="/admin/appointments">Turnos</Link>
+                    <Link
+                      to="/admin/appointments"
+                      className={`${styles.link} ${isActive("/admin/appointments") ? styles.linkActive : ""}`}
+                    >
+                      Turnos
+                    </Link>
                   </li>
                   <li>
-                    <Link to="/admin/services">Servicios</Link>
+                    <Link
+                      to="/admin/services"
+                      className={`${styles.link} ${isActive("/admin/services") ? styles.linkActive : ""}`}
+                    >
+                      Servicios
+                    </Link>
                   </li>
                   <li>
-                    <Link to="/admin/stats">Estadísticas</Link>
+                    <Link
+                      to="/admin/stats"
+                      className={`${styles.link} ${isActive("/admin/stats") ? styles.linkActive : ""}`}
+                    >
+                      Estadísticas
+                    </Link>
                   </li>
                 </>
               ) : (
                 <li>
-                  <Link to="/appointments">Mis Turnos</Link>
+                  <Link
+                    to="/appointments"
+                    className={`${styles.link} ${isActive("/appointments") ? styles.linkActive : ""}`}
+                  >
+                    Mis Turnos
+                  </Link>
                 </li>
               )}
               <li>
-                <span className={styles.userName}>
-                  Hola, {user.name.split(" ")[0]}
+                <span className={styles.greeting}>
+                  Hola, {user.name.split(" ")[0]} 👋
                 </span>
               </li>
               <li>
-                <button onClick={handleLogOut}>Cerrar Sesión</button>
+                <button onClick={handleLogOut} className={styles.btnLogout}>
+                  Salir
+                </button>
               </li>
             </>
           ) : (
             <>
               <li>
-                <Link to="/register">Registrarse</Link>
+                <Link to="/login" className={styles.btnLogin}>
+                  Iniciar sesión
+                </Link>
               </li>
               <li>
-                <Link to="/login">Iniciar Sesión</Link>
+                <Link
+                  to="/register"
+                  className={`${styles.link} ${isActive("/register") ? styles.linkActive : ""}`}
+                >
+                  Registrarse
+                </Link>
               </li>
             </>
           )}

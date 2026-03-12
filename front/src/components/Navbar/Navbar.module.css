@@ -1,84 +1,157 @@
 .header {
+  padding: 20px 5%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--off-white);
+}
+
+.navbar {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  background-color: rgb(136, 196, 136, 0.9);
-  padding: 0 20px;
-  height: 80px;
-  margin: 25px auto;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
-  width: 90%;
+  background: var(--black);
+  border-radius: var(--r-xl);
+  padding: 12px 24px;
+  box-shadow: var(--sh-md);
 }
 
-.logo {
-  width: 100px;
-  border-radius: 50%;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-
-.navList {
+/* Brand */
+.brand {
   display: flex;
   align-items: center;
-  list-style: none;
-  gap: 15px;
-}
-
-.navList > li > a {
-  font-size: 1.1rem;
+  gap: 12px;
   text-decoration: none;
-  color: rgb(255, 255, 255);
-  transform: 0.3s;
-  background-color: rgb(47, 103, 47);
-  padding: 8px 12px;
-  border-radius: 10px;
-  transition: opacity 0.3s;
 }
 
-.navList > li > button {
-  font-size: 1.1rem;
-  color: rgb(255, 255, 255);
-  background-color: rgb(226, 133, 133);
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  cursor: pointer;
-  transition: opacity 0.3s;
+.logoCircle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--black);
+  flex-shrink: 0;
+  /* Cuando tengas el logo real, reemplazá esto por un <img> */
 }
 
-.userName {
-  font-size: 1rem;
-  font-weight: 600;
-  color: rgb(47, 103, 47);
+.logoImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
 }
 
-.navList > li > a:hover,
-.navList > li > button:hover {
-  opacity: 0.7;
+.brandName {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.55rem;
+  color: var(--white);
+  letter-spacing: 0.01em;
+}
+
+/* Links */
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+}
+
+.link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 8px 14px;
+  border-radius: var(--r-sm);
+  transition:
+    color 0.2s,
+    background 0.2s;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.linkActive {
+  color: var(--pink) !important;
+}
+
+.greeting {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.45);
+  padding: 0 10px;
+  white-space: nowrap;
+}
+
+.btnLogin {
+  background: var(--pink);
+  color: var(--black);
+  font-weight: 700;
+  font-size: 0.875rem;
+  padding: 9px 20px;
+  border-radius: var(--r-sm);
+  text-decoration: none;
+  transition: background 0.2s;
+  letter-spacing: 0.02em;
+}
+
+.btnLogin:hover {
+  background: var(--pink-dk);
+  color: var(--white);
+}
+
+.btnLogout {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 8px 16px;
+  border-radius: var(--r-sm);
+  transition: all 0.2s;
+}
+
+.btnLogout:hover {
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 @media (max-width: 768px) {
   .header {
+    padding: 14px 4%;
+  }
+
+  .navbar {
     flex-direction: column;
-    height: auto;
-    padding: 10px;
-    gap: 10px;
+    gap: 12px;
+    border-radius: var(--r-lg);
+    padding: 16px 18px;
   }
 
-  .logo {
-    width: 80px;
-  }
-
-  .navList {
+  .navLinks {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
   }
 
-  .navList > li > a,
-  .navList > li > button {
-    font-size: 0.9rem;
-    padding: 6px 10px;
+  .brandName {
+    font-size: 1.3rem;
+  }
+
+  .link,
+  .btnLogin,
+  .btnLogout {
+    font-size: 0.82rem;
+    padding: 7px 12px;
   }
 }
