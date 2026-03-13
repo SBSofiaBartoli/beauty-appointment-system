@@ -43,6 +43,7 @@ function Register() {
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = ({ target: { name, value } }) => {
     setForm({
@@ -118,14 +119,30 @@ function Register() {
               label="Nombre de usuario"
               placeholder="sofi_garcia"
             />
-            <Field
-              name="name"
-              label="Nombre completo"
-              placeholder="Sofía García"
-              value={form.name}
-              onChange={handleChange}
-              error={errors.name}
-            />
+            <div className={styles.inputGroup}>
+              <label className={styles.label}>Contraseña</label>
+              <div className={styles.inputWrapper}>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={form.password}
+                  onChange={handleChange}
+                  placeholder="Mínimo 7 caracteres"
+                  className={`${styles.input} ${errors.password ? styles.inputError : ""}`}
+                />
+                <button
+                  type="button"
+                  className={styles.eyeBtn}
+                  onClick={() => setShowPassword((p) => !p)}
+                  tabIndex={-1}
+                >
+                  {showPassword ? "🙈" : "👁️"}
+                </button>
+              </div>
+              {errors.password && (
+                <p className={styles.error}>{errors.password}</p>
+              )}
+            </div>
           </div>
 
           <button type="submit" className={styles.btnSubmit} disabled={loading}>

@@ -6,6 +6,7 @@ import { useAuth } from "../../context/Authcontext";
 import api from "../../helpers/api";
 import { Link } from "react-router-dom";
 import stickerLaser from "../../assets/gatitoLogin.png";
+import { useState } from "react";
 
 function Login() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function Login() {
     username: "",
     password: "",
   };
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
@@ -68,12 +70,22 @@ function Login() {
 
               <div className={styles.inputGroup}>
                 <label className={styles.label}>Contraseña</label>
-                <Field
-                  type="password"
-                  name="password"
-                  className={styles.input}
-                  placeholder="••••••••"
-                />
+                <div className={styles.inputWrapper}>
+                  <Field
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    className={styles.input}
+                    placeholder="••••••••"
+                  />
+                  <button
+                    type="button"
+                    className={styles.eyeBtn}
+                    onClick={() => setShowPassword((p) => !p)}
+                    tabIndex={-1}
+                  >
+                    {showPassword ? "🙈" : "👁️"}
+                  </button>
+                </div>
                 <p className={styles.error}>
                   <ErrorMessage name="password" />
                 </p>
