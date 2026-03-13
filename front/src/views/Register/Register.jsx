@@ -3,6 +3,7 @@ import { validateRegister } from "../../Helpers/validateRegister";
 import styles from "./Register.module.css";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../../helpers/api";
+import stickerNails from "../../assets/gatitoRegister.png";
 
 function Register() {
   const navigate = useNavigate();
@@ -51,78 +52,88 @@ function Register() {
     }
   };
 
+  const Field = ({ name, label, type = "text", placeholder }) => (
+    <div className={styles.inputGroup}>
+      <label className={styles.label}>{label}</label>
+      <input
+        type={type}
+        name={name}
+        value={form[name]}
+        onChange={handleChange}
+        placeholder={placeholder}
+        className={`${styles.input} ${errors[name] ? styles.inputError : ""}`}
+      />
+      {errors[name] && <p className={styles.error}>{errors[name]}</p>}
+    </div>
+  );
+
   return (
-    <main className={styles.registerContainer}>
-      <h2>Crear Cuenta</h2>
-      {serverError && <p className={styles.serverError}>{serverError}</p>}
-      <form onSubmit={handleSubmit}>
-        <div className={styles.inputGroup}>
-          <label>Nombre completo</label>
-          <input
-            type="text"
-            name="name"
-            onChange={handleChange}
-            value={form.name}
-          />
-          {errors.name && <p>{errors.name}</p>}
+    <main className={styles.page}>
+      <div className={styles.card}>
+        <div className={styles.cardHeader}>
+          <h1 className={styles.title}>
+            Crear
+            <br />
+            <em>cuenta</em>
+          </h1>
+          <p className={styles.subtitle}>Completá tus datos para comenzar</p>
         </div>
-        <div className={styles.inputGroup}>
-          <label>E-mail</label>
-          <input
-            type="text"
+
+        {serverError && (
+          <div className={styles.serverError}>⚠ {serverError}</div>
+        )}
+
+        <form onSubmit={handleSubmit} className={styles.form} noValidate>
+          <div className={styles.twoCol}>
+            <Field
+              name="name"
+              label="Nombre completo"
+              placeholder="Sofía García"
+            />
+            <Field
+              name="nDni"
+              label="Nº DNI"
+              type="number"
+              placeholder="xxxxxxxx"
+            />
+          </div>
+          <Field
             name="email"
-            onChange={handleChange}
-            value={form.email}
+            label="E-mail"
+            type="email"
+            placeholder="sofi@gmail.com"
           />
-          {errors.email && <p>{errors.email}</p>}
-        </div>
-        <div className={styles.inputGroup}>
-          <label>Fecha de Nacimiento</label>
-          <input
-            type="date"
-            name="birthdate"
-            onChange={handleChange}
-            value={form.birthdate}
-          />
-          {errors.birthdate && <p>{errors.birthdate}</p>}
-        </div>
-        <div className={styles.inputGroup}>
-          <label>Nº DNI</label>
-          <input
-            type="number"
-            name="nDni"
-            onChange={handleChange}
-            value={form.nDni}
-          />
-          {errors.nDni && <p>{errors.nDni}</p>}
-        </div>
-        <div className={styles.inputGroup}>
-          <label>Nombre de Usuario</label>
-          <input
-            type="text"
-            name="username"
-            onChange={handleChange}
-            value={form.username}
-          />
-          {errors.username && <p>{errors.username}</p>}
-        </div>
-        <div className={styles.inputGroup}>
-          <label>Contraseña</label>
-          <input
-            type="password"
-            name="password"
-            onChange={handleChange}
-            value={form.password}
-          />
-          {errors.password && <p>{errors.password}</p>}
-        </div>
-        <button type="submit" disabled={loading}>
-          {loading ? "Creando cuenta..." : "REGISTRARSE"}
-        </button>
-      </form>
-      <p className={styles.loginLink}>
-        ¿Ya tenés cuenta? <Link to="/login">Iniciá sesión</Link>
-      </p>
+          <Field name="birthdate" label="Fecha de nacimiento" type="date" />
+          <div className={styles.twoCol}>
+            <Field
+              name="username"
+              label="Nombre de usuario"
+              placeholder="sofi_garcia"
+            />
+            <Field
+              name="password"
+              label="Contraseña"
+              type="password"
+              placeholder="Mínimo 7 caracteres"
+            />
+          </div>
+
+          <button type="submit" className={styles.btnSubmit} disabled={loading}>
+            {loading ? "Creando cuenta..." : "Registrarse"}
+          </button>
+
+          <p className={styles.footerLink}>
+            ¿Ya tenés cuenta? <Link to="/login">Iniciá sesión</Link>
+          </p>
+        </form>
+        {/* Sticker decorativo */}
+        <img
+          src={stickerNails}
+          alt=""
+          className={styles.sticker}
+          aria-hidden="true"
+        />
+      </div>
     </main>
   );
 }
