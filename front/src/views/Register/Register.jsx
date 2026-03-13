@@ -5,6 +5,29 @@ import { useNavigate, Link } from "react-router-dom";
 import api from "../../helpers/api";
 import stickerNails from "../../assets/gatitoRegister.png";
 
+const Field = ({
+  name,
+  label,
+  type = "text",
+  placeholder,
+  value,
+  onChange,
+  error,
+}) => (
+  <div className={styles.inputGroup}>
+    <label className={styles.label}>{label}</label>
+    <input
+      type={type}
+      name={name}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      className={`${styles.input} ${error ? styles.inputError : ""}`}
+    />
+    {error && <p className={styles.error}>{error}</p>}
+  </div>
+);
+
 function Register() {
   const navigate = useNavigate();
   const initialState = {
@@ -52,21 +75,6 @@ function Register() {
     }
   };
 
-  const Field = ({ name, label, type = "text", placeholder }) => (
-    <div className={styles.inputGroup}>
-      <label className={styles.label}>{label}</label>
-      <input
-        type={type}
-        name={name}
-        value={form[name]}
-        onChange={handleChange}
-        placeholder={placeholder}
-        className={`${styles.input} ${errors[name] ? styles.inputError : ""}`}
-      />
-      {errors[name] && <p className={styles.error}>{errors[name]}</p>}
-    </div>
-  );
-
   return (
     <main className={styles.page}>
       <div className={styles.card}>
@@ -111,10 +119,12 @@ function Register() {
               placeholder="sofi_garcia"
             />
             <Field
-              name="password"
-              label="Contraseña"
-              type="password"
-              placeholder="Mínimo 7 caracteres"
+              name="name"
+              label="Nombre completo"
+              placeholder="Sofía García"
+              value={form.name}
+              onChange={handleChange}
+              error={errors.name}
             />
           </div>
 
