@@ -5,6 +5,7 @@ import AppointmentForm from "../../components/AppointmentForm/AppointmentForm";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/Authcontext";
 import api from "../../helpers/api";
+import stickerNails from "../../assets/emptyState.png";
 
 function MisTurnos() {
   const [appointments, setAppointments] = useState([]);
@@ -12,11 +13,11 @@ function MisTurnos() {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  const getAppointments = async () => {
+  const fetchAppointments = async () => {
     try {
       setLoading(true);
-      const response = await api.get("/appointments");
-      setAppointments(response.data);
+      const res = await api.get("/appointments");
+      setAppointments(res.data);
     } catch (error) {
       if (error.response?.status !== 404) console.error(error);
       setAppointments([]);
@@ -28,39 +29,63 @@ function MisTurnos() {
   useEffect(() => {
     if (!user) {
       navigate("/login");
-    } else {
-      getAppointments();
+      return;
     }
+    fetchAppointments();
   }, [user, navigate]);
 
   return (
-    <main className={styles.myAppointmentsContainer}>
+    <main className={styles.page}>
+      <div className={styles.header}>
+        <div>
+          <h1 className={styles.title}>
+            Mis <em>Turnos</em>
+          </h1>
+          <p className={styles.subtitle}>
+            {appointments.length > 0
+              ? `${appointments.filter((a) => a.status === "active").length} turno${appointments.filter((a) => a.status === "active").length !== 1 ? "s" : ""} activo${appointments.filter((a) => a.status === "active").length !== 1 ? "s" : ""}`
+              : "Sin turnos aún"}
+          </p>
+        </div>
+      </div>
+
       <AppointmentForm
-        onAddAppointment={(appt) => setAppointments((prev) => [...prev, appt])}
+        onAddAppointment={(a) => setAppointments((p) => [a, ...p])}
       />
-      <h1>Mis Turnos</h1>
-      <div className={styles.appointmentsHeader}>
-        <span>Fecha</span>
-        <span>Hora</span>
-        <span>Tratamiento</span>
-        <span>Estado</span>
-        <span>Acción</span>
-      </div>
-      <div className={styles.appointmentsList}>
-        {loading ? (
-          <p className={styles.loading}>Cargando turnos...</p>
-        ) : appointments.length === 0 ? (
-          <p className={styles.empty}>No tenés turnos reservados aún.</p>
-        ) : (
-          appointments.map((appoint) => (
-            <AppointmentCard
-              key={appoint.id}
-              appointment={appoint}
-              onCancel={getAppointments}
-            />
-          ))
-        )}
-      </div>
+
+      {loading ? (
+        <div className={styles.loadingState}>
+          <div className={styles.spinner} />
+          <p>Cargando tus turnos...</p>
+        </div>
+      ) : appointments.length === 0 ? (
+        <div className={styles.emptyState}>
+          <img src={stickerNails} alt="" className={styles.emptySticker} />
+          <h3 className={styles.emptyTitle}>¡Todavía no tenés turnos!</h3>
+          <p className={styles.emptySub}>
+            Reservá tu primer turno y empezá a brillar ✨
+          </p>
+        </div>
+      ) : (
+        <div className={styles.table}>
+          <div className={styles.tableHeader}>
+            <span>Fecha</span>
+            <span>Hora</span>
+            <span>Tratamiento</span>
+            <span>Estado</span>
+            <span>Acción</span>
+          </div>
+          <div className={styles.tableBody}>
+            {appointments.map((a) => (
+              <AppointmentCard
+                key={a.id}
+                appointment={a}
+                onCancel={fetchAppointments}
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </main>
   );
 }
