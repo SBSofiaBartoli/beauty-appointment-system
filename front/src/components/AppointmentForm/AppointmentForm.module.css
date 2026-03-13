@@ -1,137 +1,184 @@
-
-.appointmentForm {
-    background: rgb(156, 233, 156);
-    padding: 20px 50px;
-    border-radius: 20px;
-    margin-bottom: 30px;
-    width: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 8px;
 }
 
-.appointmentForm > div > button {
-    font-weight: 600;
-    padding: 10px 0;
-    margin-top: 15px;
-    width: 150px;
-    border-radius: 15px;
-    background: rgb(83, 163, 83);
-    cursor: pointer;
-    transition: 0.3s;
+.btnReserve {
+  background: var(--pink);
+  color: var(--black);
+  border: none;
+  padding: 12px 26px;
+  border-radius: var(--r-sm);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 
-.reserveButton {
-    background-color: rgb(83, 163, 83);
-    color: #fff;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 15px;
-    font-size: 18px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.3s;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+.btnReserve:hover {
+  background: var(--pink-dk);
+  color: var(--white);
 }
 
-.reserveButton:hover {
-    opacity: 0.9;
+.formCard {
+  width: 100%;
+  background: var(--white);
+  border: 1px solid var(--light-gray);
+  border-radius: var(--r-lg);
+  padding: 32px 36px;
+  box-shadow: var(--sh-sm);
 }
 
-.buttonsGroup {
-    display: flex;
-    gap: 20px;
+.formCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
 }
-.appointmentForm > button:hover {
-    opacity: 0.8;
+
+.formTitle {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.formTitle em {
+  font-style: italic;
+  color: var(--pink-dk);
+}
+
+.btnClose {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--warm-white);
+  border: none;
+  font-size: 0.8rem;
+  color: var(--gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.btnClose:hover {
+  background: var(--light-gray);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
 
 .inputGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
 }
 
-.inputGroup > input {
-    border: 0;
-    padding: 5px;
-    font-size: 16px;
-    border-radius: 10px;
-    outline: 0;
+.label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray);
 }
 
-.inputGroup > select {
-    border: 0;
-    padding: 5px;
-    font-size: 16px;
-    border-radius: 10px;
-    outline: 0;
+.input {
+  padding: 11px 14px;
+  border: 1.5px solid var(--light-gray);
+  border-radius: var(--r-sm);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--off-white);
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  width: 100%;
 }
 
-.inputGroup > p {
-    color: red;
-    font-size: 15px;
+.input:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(242, 167, 195, 0.18);
+  background: var(--white);
 }
 
-@media (max-width: 900px) {
-    .appointmentForm {
-        width: 90%;
-        padding: 20px;
-    }
+.error {
+  font-size: 0.75rem;
+  color: var(--danger);
+  min-height: 14px;
+}
 
-    .inputGroup {
-        width: 100%;
-    }
+.formActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
 
-    .reserveButton {
-        width: 100%;
-        font-size: 16px;
-    }
+.btnConfirm {
+  flex: 1;
+  padding: 13px;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  border-radius: var(--r-sm);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background 0.2s;
+}
 
-    .buttonsGroup {
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-    }
+.btnConfirm:hover:not(:disabled) {
+  background: #333;
+}
+.btnConfirm:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
-    .buttonsGroup button {
-        width: 100%;
-    }
+.btnCancel {
+  padding: 13px 24px;
+  background: transparent;
+  border: 1.5px solid var(--light-gray);
+  color: var(--gray);
+  border-radius: var(--r-sm);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btnCancel:hover {
+  border-color: var(--gray);
+  color: var(--ink);
 }
 
 @media (max-width: 600px) {
-    .appointmentForm {
-        width: 95%;
-        padding: 15px;
-        border-radius: 15px;
-    }
-
-    .inputGroup {
-        width: 100%;
-        gap: 8px;
-    }
-
-    .inputGroup > input,
-    .inputGroup > select {
-        font-size: 15px;
-        padding: 8px;
-    }
-
-    .reserveButton {
-        padding: 10px;
-        font-size: 15px;
-    }
-
-    .appointmentForm > div > button {
-        width: 100%;
-        font-size: 15px;
-    }
-
-    .buttonsGroup {
-        flex-direction: column;
-        align-items: stretch;
-    }
+  .formCard {
+    padding: 24px 20px;
+  }
+  .twoCol {
+    grid-template-columns: 1fr;
+  }
+  .formActions {
+    flex-direction: column;
+  }
 }

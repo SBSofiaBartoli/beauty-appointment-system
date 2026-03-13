@@ -30,19 +30,26 @@ function AppointmentCard({ appointment, onCancel }) {
     return `${day}/${month}/${year}`;
   };
 
+  const isActive = appointment.status === "active";
+
   return (
-    <div className={styles.appointmentCard}>
-      <span>{formatDate(appointment.date)}</span>
-      <span>{appointment.time}</span>
-      <span>{appointment.treatment}</span>
-      <span
-        className={`${styles.status} ${appointment.status === "cancelled" ? styles.cancelled : styles.active}`}
-      >
-        {appointment.status === "cancelled" ? "Cancelado" : "Activo"}
+    <div className={`${styles.row} ${!isActive ? styles.rowCancelled : ""}`}>
+      <span className={styles.cell}>{formatDate(appointment.date)}</span>
+      <span className={styles.cell}>{appointment.time}</span>
+      <span className={`${styles.cell} ${styles.treatment}`}>
+        {appointment.treatment}
       </span>
-      <span>
-        {appointment.status !== "cancelled" && (
-          <button onClick={handleCancel} className={styles.cancelButton}>
+      <span className={styles.cell}>
+        <span
+          className={`${styles.badge} ${isActive ? styles.badgeActive : styles.badgeCancelled}`}
+        >
+          <span className={styles.dot} />
+          {isActive ? "Activo" : "Cancelado"}
+        </span>
+      </span>
+      <span className={styles.cell}>
+        {isActive && (
+          <button onClick={handleCancel} className={styles.btnCancel}>
             Cancelar
           </button>
         )}

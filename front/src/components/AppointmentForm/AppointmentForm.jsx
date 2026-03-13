@@ -8,11 +8,6 @@ function AppointmentForm({ onAddAppointment }) {
   const [showForm, setShowForm] = useState(false);
   const [services, setServices] = useState([]);
   const [schedules, setSchedules] = useState([]);
-  const initialState = {
-    date: "",
-    time: "",
-    treatment: "",
-  };
 
   useEffect(() => {
     api
@@ -26,113 +21,140 @@ function AppointmentForm({ onAddAppointment }) {
   }, []);
 
   const availableTimes = [...new Set(schedules.map((s) => s.time))].sort();
+  const fallbackTimes = [
+    "08:00",
+    "09:00",
+    "10:00",
+    "11:00",
+    "12:00",
+    "13:00",
+    "14:00",
+    "15:00",
+    "16:00",
+    "17:00",
+  ];
+  const times = availableTimes.length > 0 ? availableTimes : fallbackTimes;
+
+  const fallbackServices = [
+    "Uñas semipermanentes",
+    "Pestañas pelo por pelo",
+    "Lifting de pestañas",
+    "Depilación láser",
+    "Limpieza facial",
+    "Masaje relajante",
+  ];
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
-      const response = await api.post("/appointments/schedule", values);
-      onAddAppointment(response.data);
-      alert("¡Turno reservado con éxito!");
+      const res = await api.post("/appointments/schedule", values);
+      onAddAppointment(res.data);
       resetForm();
       setShowForm(false);
     } catch (error) {
-      const message =
-        error.response?.data?.message ||
-        "Ocurrió un error al reservar el turno";
-      alert(message);
+      alert(error.response?.data?.message || "Error al reservar el turno");
     }
   };
 
-  return (
-    <div className={styles.formContainer}>
-      {!showForm ? (
-        <button
-          className={styles.reserveButton}
-          onClick={() => setShowForm(true)}
-        >
-          Reservar Turno
+  if (!showForm) {
+    return (
+      <div className={styles.wrapper}>
+        <button className={styles.btnReserve} onClick={() => setShowForm(true)}>
+          + Reservar turno
         </button>
-      ) : (
+      </div>
+    );
+  }
+
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.formCard}>
+        <div className={styles.formCardHeader}>
+          <h3 className={styles.formTitle}>
+            Nuevo <em>turno</em>
+          </h3>
+          <button
+            className={styles.btnClose}
+            onClick={() => setShowForm(false)}
+            type="button"
+          >
+            ✕
+          </button>
+        </div>
+
         <Formik
-          initialValues={initialState}
+          initialValues={{ date: "", time: "", treatment: "" }}
           validate={validateAppointment}
           onSubmit={handleSubmit}
         >
-          <Form className={styles.appointmentForm}>
-            <div className={styles.inputGroup}>
-              <label>Tratamiento</label>
-              <Field as="select" name="treatment">
-                <option value="">Seleccioná un tratamiento</option>
-                {services.length > 0
-                  ? services.map((s) => (
-                      <option key={s.id} value={s.name}>
-                        {s.name} — ${s.price} ({s.durationMinutes} min)
-                      </option>
-                    ))
-                  : // Fallback si no hay servicios cargados aún
-                    [
-                      "Uñas semipermanentes",
-                      "Pestañas pelo por pelo",
-                      "Lifting de pestañas",
-                      "Depilación láser",
-                      "Limpieza facial",
-                      "Masaje relajante",
-                    ].map((t) => (
-                      <option key={t} value={t}>
-                        {t}
+          {({ isSubmitting }) => (
+            <Form className={styles.form} noValidate>
+              <div className={styles.inputGroup}>
+                <label className={styles.label}>Tratamiento</label>
+                <Field as="select" name="treatment" className={styles.input}>
+                  <option value="">Seleccioná un tratamiento</option>
+                  {services.length > 0
+                    ? services.map((s) => (
+                        <option key={s.id} value={s.name}>
+                          {s.name} — ${Number(s.price).toLocaleString("es-AR")}{" "}
+                          ({s.durationMinutes} min)
+                        </option>
+                      ))
+                    : fallbackServices.map((t) => (
+                        <option key={t} value={t}>
+                          {t}
+                        </option>
+                      ))}
+                </Field>
+                <p className={styles.error}>
+                  <ErrorMessage name="treatment" />
+                </p>
+              </div>
+
+              <div className={styles.twoCol}>
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Fecha</label>
+                  <Field type="date" name="date" className={styles.input} />
+                  <p className={styles.error}>
+                    <ErrorMessage name="date" />
+                  </p>
+                </div>
+
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Hora</label>
+                  <Field as="select" name="time" className={styles.input}>
+                    <option value="">Seleccioná</option>
+                    {times.map((h) => (
+                      <option key={h} value={h}>
+                        {h}
                       </option>
                     ))}
-              </Field>
-              <p>
-                <ErrorMessage name="treatment" />
-              </p>
-            </div>
+                  </Field>
+                  <p className={styles.error}>
+                    <ErrorMessage name="time" />
+                  </p>
+                </div>
+              </div>
 
-            <div className={styles.inputGroup}>
-              <label>Fecha de Reserva</label>
-              <Field type="date" name="date" />
-              <p>
-                <ErrorMessage name="date" />
-              </p>
-            </div>
-
-            <div className={styles.inputGroup}>
-              <label>Hora de Reserva</label>
-              <Field as="select" name="time">
-                <option value="">Seleccioná una hora</option>
-                {(availableTimes.length > 0
-                  ? availableTimes
-                  : [
-                      "08:00",
-                      "09:00",
-                      "10:00",
-                      "11:00",
-                      "12:00",
-                      "13:00",
-                      "14:00",
-                      "15:00",
-                      "16:00",
-                      "17:00",
-                    ]
-                ).map((hour) => (
-                  <option key={hour} value={hour}>
-                    {hour}
-                  </option>
-                ))}
-              </Field>
-              <p>
-                <ErrorMessage name="time" />
-              </p>
-            </div>
-
-            <div className={styles.buttonsGroup}>
-              <button type="submit">Confirmar Turno</button>
-              <button type="button" onClick={() => setShowForm(false)}>
-                Cancelar
-              </button>
-            </div>
-          </Form>
+              <div className={styles.formActions}>
+                <button
+                  type="submit"
+                  className={styles.btnConfirm}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Reservando..." : "Confirmar turno"}
+                </button>
+                <button
+                  type="button"
+                  className={styles.btnCancel}
+                  onClick={() => setShowForm(false)}
+                >
+                  Cancelar
+                </button>
+              </div>
+            </Form>
+          )}
         </Formik>
-      )}
+      </div>
     </div>
   );
 }
