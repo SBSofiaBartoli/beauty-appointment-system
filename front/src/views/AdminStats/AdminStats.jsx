@@ -30,47 +30,62 @@ function AdminStats() {
 
   const cancelRate =
     stats.total > 0 ? ((stats.cancelled / stats.total) * 100).toFixed(1) : 0;
+  const maxMonth = Math.max(
+    ...(stats.byMonth.map((m) => Number(m.count)) || [1]),
+    1,
+  );
+
+  const KPIs = [
+    { label: "Turnos totales", value: stats.total, accent: "default" },
+    { label: "Activos", value: stats.active, accent: "green" },
+    {
+      label: `Cancelados (${cancelRate}%)`,
+      value: stats.cancelled,
+      accent: "red",
+    },
+    {
+      label: "Ingresos est.",
+      value: `$${Number(stats.estimatedRevenue).toLocaleString("es-AR")}`,
+      accent: "pink",
+    },
+  ];
 
   return (
-    <main className={styles.container}>
-      <h1>Panel de Estadísticas</h1>
+    <main className={styles.page}>
+      <div className={styles.pageHeader}>
+        <h1 className={styles.title}>
+          Panel de <em>Estadísticas</em>
+        </h1>
+        <p className={styles.subtitle}>Resumen general del negocio</p>
+      </div>
 
       <div className={styles.kpiGrid}>
-        <div className={styles.kpi}>
-          <span className={styles.kpiValue}>{stats.total}</span>
-          <span className={styles.kpiLabel}>Turnos totales</span>
-        </div>
-        <div className={`${styles.kpi} ${styles.kpiGreen}`}>
-          <span className={styles.kpiValue}>{stats.active}</span>
-          <span className={styles.kpiLabel}>Activos</span>
-        </div>
-        <div className={`${styles.kpi} ${styles.kpiRed}`}>
-          <span className={styles.kpiValue}>{stats.cancelled}</span>
-          <span className={styles.kpiLabel}>Cancelados ({cancelRate}%)</span>
-        </div>
-        <div className={`${styles.kpi} ${styles.kpiGold}`}>
-          <span className={styles.kpiValue}>
-            ${Number(stats.estimatedRevenue).toLocaleString("es-AR")}
-          </span>
-          <span className={styles.kpiLabel}>Ingresos estimados</span>
-        </div>
+        {KPIs.map((k) => (
+          <div
+            key={k.label}
+            className={`${styles.kpi} ${styles[`kpi_${k.accent}`]}`}
+          >
+            <span className={styles.kpiValue}>{k.value}</span>
+            <span className={styles.kpiLabel}>{k.label}</span>
+          </div>
+        ))}
       </div>
 
       <div className={styles.twoCol}>
         <section className={styles.section}>
-          <h2>Turnos por mes</h2>
+          <h2 className={styles.sectionTitle}>Turnos por mes</h2>
           {stats.byMonth.length === 0 ? (
-            <p className={styles.empty}>Sin datos</p>
+            <p className={styles.noData}>Sin datos aún</p>
           ) : (
-            <ul className={styles.list}>
+            <ul className={styles.barList}>
               {stats.byMonth.map((m) => (
-                <li key={m.month} className={styles.listItem}>
-                  <span>{m.month}</span>
-                  <div className={styles.barWrap}>
+                <li key={m.month} className={styles.barRow}>
+                  <span className={styles.barLabel}>{m.month}</span>
+                  <div className={styles.barTrack}>
                     <div
-                      className={styles.bar}
+                      className={styles.barFill}
                       style={{
-                        width: `${Math.min((m.count / Math.max(...stats.byMonth.map((x) => x.count))) * 100, 100)}%`,
+                        width: `${(Number(m.count) / maxMonth) * 100}%`,
                       }}
                     />
                   </div>
@@ -82,16 +97,16 @@ function AdminStats() {
         </section>
 
         <section className={styles.section}>
-          <h2>Tratamientos más solicitados</h2>
+          <h2 className={styles.sectionTitle}>Top tratamientos</h2>
           {stats.topTreatments.length === 0 ? (
-            <p className={styles.empty}>Sin datos</p>
+            <p className={styles.noData}>Sin datos aún</p>
           ) : (
-            <ul className={styles.list}>
+            <ul className={styles.rankList}>
               {stats.topTreatments.map((t, i) => (
-                <li key={t.treatment} className={styles.listItem}>
-                  <span className={styles.rank}>#{i + 1}</span>
-                  <span className={styles.treatName}>{t.treatment}</span>
-                  <span className={styles.barCount}>{t.count} turnos</span>
+                <li key={t.treatment} className={styles.rankRow}>
+                  <span className={styles.rankNum}>#{i + 1}</span>
+                  <span className={styles.rankName}>{t.treatment}</span>
+                  <span className={styles.rankCount}>{t.count} turnos</span>
                 </li>
               ))}
             </ul>

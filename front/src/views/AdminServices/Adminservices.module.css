@@ -1,163 +1,250 @@
-.container {
-  max-width: 1000px;
+.page {
+  max-width: 1300px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 0 5% 60px;
+}
+.pageHeader {
+  padding-top: 8px;
+  margin-bottom: 28px;
+}
+.title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 550;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.title em {
+  font-style: italic;
+  color: var(--pink-dk);
+}
+.subtitle {
+  font-size: 1.2rem;
+  color: var(--gray);
 }
 
-.container > h1 {
-  font-size: 2rem;
-  color: #1a3a1a;
+.layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.formPanel,
+.listPanel {
+  background: var(--white);
+  border: 1px solid var(--light-gray);
+  border-radius: var(--r-lg);
+  padding: 32px 28px;
+  box-shadow: var(--sh-sm);
+}
+
+.panelTitle {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 550;
+  color: var(--ink);
   margin-bottom: 24px;
-  text-align: center;
-}
-
-.formSection {
-  background: rgba(200, 252, 200, 0.7);
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 32px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-}
-
-.formSection > h2,
-.listSection > h2 {
-  font-size: 1.3rem;
-  color: #285631;
-  margin-bottom: 16px;
 }
 
 .form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.form input {
-  padding: 10px 14px;
-  border-radius: 10px;
-  border: 1px solid #b5d9b5;
-  font-size: 1rem;
-  outline: none;
-  transition: border 0.2s;
-}
-
-.form input:focus {
-  border-color: #285631;
-}
-
-.formBtns {
-  grid-column: 1 / -1;
   display: flex;
-  gap: 12px;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.saveBtn {
-  background: #285631;
-  color: white;
-  border: none;
-  padding: 10px 24px;
-  border-radius: 10px;
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.label {
   font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: opacity 0.2s;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray);
 }
-
-.saveBtn:hover {
-  opacity: 0.85;
-}
-
-.cancelBtn {
-  background: #e28585;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 10px;
+.input {
+  padding: 10px 14px;
+  border: 1.5px solid var(--light-gray);
+  border-radius: var(--r-sm);
+  font-family: var(--font-body);
   font-size: 1rem;
-  cursor: pointer;
-  transition: opacity 0.2s;
+  color: var(--ink);
+  background: var(--off-white);
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  width: 100%;
+}
+.input:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(242, 167, 195, 0.18);
+  background: var(--white);
 }
 
-.cancelBtn:hover {
-  opacity: 0.85;
+.formActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.btnSave {
+  flex: 1;
+  padding: 12px;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  border-radius: var(--r-sm);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background 0.2s;
+}
+.btnSave:hover {
+  background: #333;
+}
+
+.btnCancelEdit {
+  padding: 12px 18px;
+  background: transparent;
+  border: 1.5px solid var(--light-gray);
+  color: var(--gray);
+  border-radius: var(--r-sm);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 550;
+  transition: all 0.2s;
+}
+.btnCancelEdit:hover {
+  border-color: var(--gray);
+  color: var(--ink);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
 }
 
 .card {
-  background: white;
-  border-radius: 14px;
-  padding: 18px;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+  background: var(--off-white);
+  border: 1px solid var(--light-gray);
+  border-radius: var(--r-md);
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  transition:
+    border-color 0.2s,
+    transform 0.2s;
+}
+.card:hover {
+  border-color: var(--pink);
+  transform: translateY(-2px);
 }
 
-.card > h3 {
-  color: #1a3a1a;
-  font-size: 1.1rem;
+.cardName {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 550;
+  color: var(--ink);
 }
-.card > p {
-  color: #555;
-  font-size: 0.9rem;
+.cardDesc {
+  font-size: 1rem;
+  color: var(--gray);
+  line-height: 1.4;
 }
-
-.meta {
+.cardMeta {
   display: flex;
-  gap: 12px;
-  font-weight: 600;
-  color: #285631;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+.cardPrice {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--pink-dk);
+}
+.cardDuration {
+  font-size: 1rem;
+  color: var(--gray);
+  background: var(--warm-white);
+  padding: 2px 10px;
+  border-radius: 99px;
 }
 
-.cardBtns {
+.cardActions {
   display: flex;
   gap: 8px;
-  margin-top: 8px;
 }
-
-.editBtn {
+.btnEdit {
   flex: 1;
   padding: 7px;
-  background: #53a353;
-  color: white;
+  background: var(--black);
+  color: var(--white);
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
+  border-radius: var(--r-sm);
+  font-size: 1rem;
   font-weight: 600;
-  transition: opacity 0.2s;
+  font-family: var(--font-body);
+  transition: background 0.2s;
 }
-
-.deleteBtn {
+.btnEdit:hover {
+  background: #333;
+}
+.btnDelete {
   flex: 1;
   padding: 7px;
-  background: #e28585;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+  background: transparent;
+  color: var(--danger);
+  border: 1.5px solid rgba(224, 92, 92, 0.3);
+  border-radius: var(--r-sm);
+  font-size: 1rem;
   font-weight: 600;
-  transition: opacity 0.2s;
+  font-family: var(--font-body);
+  transition: all 0.2s;
+}
+.btnDelete:hover {
+  background: rgba(224, 92, 92, 0.07);
+  border-color: var(--danger);
 }
 
-.editBtn:hover,
-.deleteBtn:hover {
-  opacity: 0.8;
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
 }
-
-.msg {
+.spinner {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 3px solid var(--light-gray);
+  border-top-color: var(--pink);
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.empty {
   text-align: center;
-  color: #555;
-  padding: 20px;
+  padding: 40px;
+  color: var(--gray);
   font-size: 1rem;
 }
 
-@media (max-width: 600px) {
-  .form {
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .grid {
     grid-template-columns: 1fr;
   }
 }

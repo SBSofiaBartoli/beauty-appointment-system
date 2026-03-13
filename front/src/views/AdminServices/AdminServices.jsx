@@ -85,93 +85,126 @@ function AdminServices() {
   };
 
   return (
-    <main className={styles.container}>
-      <h1>Gestión de Servicios</h1>
+    <main className={styles.page}>
+      <div className={styles.pageHeader}>
+        <h1 className={styles.title}>
+          Gestión de <em>Servicios</em>
+        </h1>
+        <p className={styles.subtitle}>
+          Administrá los tratamientos disponibles
+        </p>
+      </div>
 
-      <section className={styles.formSection}>
-        <h2>{editing ? "Editar Servicio" : "Nuevo Servicio"}</h2>
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <input
-            name="name"
-            placeholder="Nombre del servicio"
-            value={form.name}
-            onChange={handleChange}
-          />
-          <input
-            name="description"
-            placeholder="Descripción (opcional)"
-            value={form.description}
-            onChange={handleChange}
-          />
-          <input
-            name="price"
-            type="number"
-            placeholder="Precio ($)"
-            value={form.price}
-            onChange={handleChange}
-          />
-          <input
-            name="durationMinutes"
-            type="number"
-            placeholder="Duración (minutos)"
-            value={form.durationMinutes}
-            onChange={handleChange}
-          />
-          <div className={styles.formBtns}>
-            <button type="submit" className={styles.saveBtn}>
-              {editing ? "Guardar Cambios" : "Crear Servicio"}
-            </button>
-            {editing && (
-              <button
-                type="button"
-                className={styles.cancelBtn}
-                onClick={() => {
-                  setEditing(null);
-                  setForm(EMPTY_FORM);
-                }}
-              >
-                Cancelar
-              </button>
-            )}
-          </div>
-        </form>
-      </section>
-
-      <section className={styles.listSection}>
-        <h2>Servicios Activos</h2>
-        {loading ? (
-          <p className={styles.msg}>Cargando...</p>
-        ) : services.length === 0 ? (
-          <p className={styles.msg}>No hay servicios cargados aún.</p>
-        ) : (
-          <div className={styles.grid}>
-            {services.map((s) => (
-              <div key={s.id} className={styles.card}>
-                <h3>{s.name}</h3>
-                {s.description && <p>{s.description}</p>}
-                <div className={styles.meta}>
-                  <span>${Number(s.price).toLocaleString("es-AR")}</span>
-                  <span>{s.durationMinutes} min</span>
-                </div>
-                <div className={styles.cardBtns}>
-                  <button
-                    onClick={() => handleEdit(s)}
-                    className={styles.editBtn}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    onClick={() => handleDelete(s.id)}
-                    className={styles.deleteBtn}
-                  >
-                    Desactivar
-                  </button>
-                </div>
+      <div className={styles.layout}>
+        {/* Form */}
+        <aside className={styles.formPanel}>
+          <h2 className={styles.panelTitle}>
+            {editing ? "Editar servicio" : "Nuevo servicio"}
+          </h2>
+          <form onSubmit={handleSubmit} className={styles.form}>
+            {[
+              {
+                name: "name",
+                label: "Nombre",
+                type: "text",
+                placeholder: "Uñas semipermanentes",
+              },
+              {
+                name: "description",
+                label: "Descripción",
+                type: "text",
+                placeholder: "Opcional",
+              },
+              {
+                name: "price",
+                label: "Precio ($)",
+                type: "number",
+                placeholder: "8500",
+              },
+              {
+                name: "durationMinutes",
+                label: "Duración (min)",
+                type: "number",
+                placeholder: "60",
+              },
+            ].map((f) => (
+              <div key={f.name} className={styles.inputGroup}>
+                <label className={styles.label}>{f.label}</label>
+                <input
+                  name={f.name}
+                  type={f.type}
+                  placeholder={f.placeholder}
+                  value={form[f.name]}
+                  onChange={handleChange}
+                  className={styles.input}
+                />
               </div>
             ))}
-          </div>
-        )}
-      </section>
+            <div className={styles.formActions}>
+              <button type="submit" className={styles.btnSave}>
+                {editing ? "Guardar cambios" : "Crear servicio"}
+              </button>
+              {editing && (
+                <button
+                  type="button"
+                  className={styles.btnCancelEdit}
+                  onClick={() => {
+                    setEditing(null);
+                    setForm(EMPTY_FORM);
+                  }}
+                >
+                  Cancelar
+                </button>
+              )}
+            </div>
+          </form>
+        </aside>
+
+        {/* List */}
+        <section className={styles.listPanel}>
+          <h2 className={styles.panelTitle}>Servicios activos</h2>
+          {loading ? (
+            <div className={styles.loading}>
+              <div className={styles.spinner} />
+            </div>
+          ) : services.length === 0 ? (
+            <p className={styles.empty}>No hay servicios cargados aún.</p>
+          ) : (
+            <div className={styles.grid}>
+              {services.map((s) => (
+                <div key={s.id} className={styles.card}>
+                  <h3 className={styles.cardName}>{s.name}</h3>
+                  {s.description && (
+                    <p className={styles.cardDesc}>{s.description}</p>
+                  )}
+                  <div className={styles.cardMeta}>
+                    <span className={styles.cardPrice}>
+                      ${Number(s.price).toLocaleString("es-AR")}
+                    </span>
+                    <span className={styles.cardDuration}>
+                      {s.durationMinutes} min
+                    </span>
+                  </div>
+                  <div className={styles.cardActions}>
+                    <button
+                      onClick={() => handleEdit(s)}
+                      className={styles.btnEdit}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      onClick={() => handleDelete(s.id)}
+                      className={styles.btnDelete}
+                    >
+                      Desactivar
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+      </div>
     </main>
   );
 }

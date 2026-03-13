@@ -4,6 +4,12 @@ import { useAuth } from "../../context/Authcontext";
 import { useNavigate } from "react-router-dom";
 import styles from "./AdminAppointments.module.css";
 
+const FILTERS = [
+  { key: "all", label: "Todos" },
+  { key: "active", label: "Activos" },
+  { key: "cancelled", label: "Cancelados" },
+];
+
 function AdminAppointments() {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -50,30 +56,41 @@ function AdminAppointments() {
   };
 
   return (
-    <main className={styles.container}>
-      <h1>Gestión de Turnos</h1>
+    <main className={styles.page}>
+      <div className={styles.pageHeader}>
+        <h1 className={styles.title}>
+          Gestión de <em>Turnos</em>
+        </h1>
+        <p className={styles.subtitle}>{appointments.length} turnos en total</p>
+      </div>
 
-      <div className={styles.filters}>
-        {["all", "active", "cancelled"].map((f) => (
-          <button
-            key={f}
-            className={`${styles.filterBtn} ${filter === f ? styles.active : ""}`}
-            onClick={() => setFilter(f)}
-          >
-            {f === "all" ? "Todos" : f === "active" ? "Activos" : "Cancelados"}
-          </button>
-        ))}
-        <span className={styles.count}>
-          {filtered.length} turno{filtered.length !== 1 ? "s" : ""}
-        </span>
+      <div className={styles.toolbar}>
+        <div className={styles.filters}>
+          {FILTERS.map((f) => (
+            <button
+              key={f.key}
+              className={`${styles.filterBtn} ${filter === f.key ? styles.filterActive : ""}`}
+              onClick={() => setFilter(f.key)}
+            >
+              {f.label}
+              <span className={styles.filterCount}>
+                {f.key === "all"
+                  ? appointments.length
+                  : appointments.filter((a) => a.status === f.key).length}
+              </span>
+            </button>
+          ))}
+        </div>
       </div>
 
       {loading ? (
-        <p className={styles.msg}>Cargando...</p>
+        <div className={styles.loading}>
+          <div className={styles.spinner} />
+        </div>
       ) : filtered.length === 0 ? (
-        <p className={styles.msg}>No hay turnos para mostrar.</p>
+        <div className={styles.empty}>No hay turnos para mostrar.</div>
       ) : (
-        <div className={styles.tableWrapper}>
+        <div className={styles.tableWrap}>
           <table className={styles.table}>
             <thead>
               <tr>
@@ -88,7 +105,7 @@ function AdminAppointments() {
             <tbody>
               {filtered.map((a) => (
                 <tr key={a.id}>
-                  <td>{a.user?.name || "-"}</td>
+                  <td className={styles.tdBold}>{a.user?.name || "—"}</td>
                   <td>{formatDate(a.date)}</td>
                   <td>{a.time}</td>
                   <td>{a.treatment}</td>
@@ -96,13 +113,14 @@ function AdminAppointments() {
                     <span
                       className={`${styles.badge} ${a.status === "active" ? styles.badgeActive : styles.badgeCancelled}`}
                     >
+                      <span className={styles.dot} />
                       {a.status === "active" ? "Activo" : "Cancelado"}
                     </span>
                   </td>
                   <td>
                     {a.status === "active" && (
                       <button
-                        className={styles.cancelBtn}
+                        className={styles.btnCancel}
                         onClick={() => handleCancel(a.id)}
                       >
                         Cancelar
