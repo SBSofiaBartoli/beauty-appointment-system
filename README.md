@@ -65,7 +65,6 @@ El proyecto implementa **autenticación JWT, arquitectura modular y un panel adm
 
 - Registro e inicio de sesión
 - Autenticación con JWT
-- Gestión de perfil
 
 ### 📅 Turnos
 
