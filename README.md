@@ -30,7 +30,7 @@ El proyecto implementa **autenticación JWT, arquitectura modular y un panel adm
 
 # 🎥 Demo
 
-![Demo](./screenshots/demo.gif)
+![Demo](./screenshots/Demo.gif)
 
 💡 El GIF muestra el flujo completo:
 
@@ -39,7 +39,25 @@ El proyecto implementa **autenticación JWT, arquitectura modular y un panel adm
 3. gestión de turnos
 4. panel administrativo
 
----
+### Home
+
+![Home](./screenshots/Home.png)
+
+### Login
+
+![Login](./screenshots/Login.png)
+
+### Panel Admin
+
+![Admin](./screenshots/Dashboard.png)
+
+### Gestión de servicios
+
+![Services](./screenshots/Services.png)
+
+### Estadísticas
+
+![Stats](./screenshots/Stats.png)
 
 # ✨ Features
 
@@ -112,10 +130,10 @@ El dashboard administrativo muestra:
 
 El backend sigue una arquitectura por capas:
 
-• Controllers → endpoints HTTP
-• Services → lógica de negocio
-• Entities → modelos de base de datos
-• DTOs → validación de datos
+- Controllers → endpoints HTTP
+- Services → lógica de negocio
+- Entities → modelos de base de datos
+- DTOs → validación de datos
 
 ---
 
@@ -178,6 +196,53 @@ Service
 
 ---
 
+## 🧠 Caso de estudio del proyecto
+
+### Problema
+
+Muchos centros de estética gestionan sus turnos mediante WhatsApp, hojas de cálculo o incluso cuadernos físicos.  
+Esto suele generar problemas como:
+
+- superposición de turnos
+- dificultad para ver la disponibilidad real
+- poca organización en la gestión de servicios
+- falta de datos para analizar el rendimiento del negocio
+
+Un sistema digital centralizado permite mejorar la organización y optimizar la gestión de turnos.
+
+### Solución
+
+Dimissi es una aplicación web full stack diseñada para gestionar turnos en centros de estética.
+
+El sistema permite:
+
+- a los clientes registrarse e iniciar sesión
+- reservar y cancelar turnos de forma online
+- a los administradores gestionar servicios y horarios
+- visualizar estadísticas del negocio como cantidad de turnos o ingresos estimados.
+
+### Decisiones técnicas
+
+**React + Vite**
+
+Se eligió React con Vite para el frontend por su rapidez de desarrollo y tiempos de compilación optimizados.
+
+**TypeScript en backend**
+
+Permite mayor seguridad en tipos y facilita el mantenimiento del código a medida que el proyecto crece.
+
+**TypeORM**
+
+Se utiliza para mapear entidades de la base de datos y simplificar la interacción con PostgreSQL.
+
+**Autenticación con JWT**
+
+Se implementó autenticación basada en tokens para mantener el backend sin estado y permitir control de acceso por roles (admin y cliente).
+
+**CSS Modules**
+
+Permite encapsular estilos por componente y evitar conflictos globales de CSS.
+
 # 🔐 Autenticación
 
 ```text
@@ -189,8 +254,9 @@ Service
 
 Expiración del token: 8 horas
 El rol se valida en:
-• middleware backend
-• contexto de autenticación en frontend
+
+- middleware backend
+- contexto de autenticación en frontend
 
 ---
 
@@ -198,9 +264,9 @@ El rol se valida en:
 
 Requisitos
 
-• Node.js 18+
-• PostgreSQL
-• npm
+- Node.js 18+
+- PostgreSQL
+- npm
 
 1 Clonar repositorio
 
@@ -257,43 +323,21 @@ Variables CSS definidas en index.css.
 
 ### Tipografías:
 
-• Playfair Display
-• Nunito
-
-# ⚙ Decisiones técnicas
-
-### Axios interceptor
-
-El cliente HTTP:
-
-• inyecta automáticamente el token en cada request
-• redirige a login cuando recibe un 401.
-
-### CSS Modules
-
-Cada componente tiene su propio archivo .module.css.
-
-Beneficios:
-
-• evita conflictos de estilos
-• mantiene los estilos encapsulados
-
-### Optimización de render
-
-El componente Field del formulario de registro se define fuera del render para evitar re-mount de inputs y pérdida de foco.
+- Playfair Display
+- Nunito
 
 ---
 
 # 🔮 Mejoras futuras
 
-• recordatorios automáticos por email
-• calendario visual
-• integración de pagos online
-• notificaciones en tiempo real
+- recordatorios automáticos por email
+- calendario visual
+- integración de pagos online
+- notificaciones en tiempo real
 
 ---
 
 ### 👩‍💻 Autor
 
-Desarrollado por Sofia Bartoli
-Full Stack Developer
+- Desarrollado por Sofia Bartoli
+- Full Stack Developer | Backend oriented
