@@ -98,12 +98,18 @@ function Register() {
               name="name"
               label="Nombre completo"
               placeholder="Sofía García"
+              value={form.name}
+              onChange={handleChange}
+              error={errors.name}
             />
             <Field
               name="nDni"
               label="Nº DNI"
               type="number"
               placeholder="xxxxxxxx"
+              value={form.nDni}
+              onChange={handleChange}
+              error={errors.nDni}
             />
           </div>
           <Field
@@ -111,13 +117,26 @@ function Register() {
             label="E-mail"
             type="email"
             placeholder="sofi@gmail.com"
+            value={form.email}
+            onChange={handleChange}
+            error={errors.email}
           />
-          <Field name="birthdate" label="Fecha de nacimiento" type="date" />
+          <Field
+            name="birthdate"
+            label="Fecha de nacimiento"
+            type="date"
+            value={form.birthdate}
+            onChange={handleChange}
+            error={errors.birthdate}
+          />
           <div className={styles.twoCol}>
             <Field
               name="username"
               label="Nombre de usuario"
               placeholder="sofi_garcia"
+              value={form.username}
+              onChange={handleChange}
+              error={errors.username}
             />
             <div className={styles.inputGroup}>
               <label className={styles.label}>Contraseña</label>
